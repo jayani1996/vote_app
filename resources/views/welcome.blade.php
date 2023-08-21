@@ -6,6 +6,6 @@
     <title>Document</title>
 </head>
 <body>
-    jayani sdsdfsdfsdfsdf
+    Voting System
 </body>
 </html>
