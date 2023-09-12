@@ -9,7 +9,7 @@
 <meta name="robots" content="noindex, nofollow">
 <title>Login - Pos admin template</title>
 
-<link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.jpg">
+<link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.png">
 
 <link rel="stylesheet" href="assets/css/bootstrap.min.css">
 
@@ -26,42 +26,82 @@
 <div class="login-content">
 <div class="login-userset">
 <div class="login-logo">
-<img src="assets/img/logo.png" alt="img">
+<img src="assets/img/logo/evote-logo.png" alt="img">
 </div>
 <div class="login-userheading">
 <h3>Sign In</h3>
 <h4>Please login to your account</h4>
 </div>
-<div class="form-login">
-<label>Email</label>
-<div class="form-addons">
-<input type="text" placeholder="Enter your email address">
-<img src="assets/img/icons/mail.svg" alt="img">
-</div>
-</div>
-<div class="form-login">
-<label>Password</label>
-<div class="pass-group">
-<input type="password" class="pass-input" placeholder="Enter your password">
-<span class="fas toggle-password fa-eye-slash"></span>
-</div>
-</div>
-<div class="form-login">
-<div class="alreadyuser">
-<h4><a href="forgetpassword.html" class="hover-a">Forgot Password?</a></h4>
-</div>
-</div>
-<div class="form-login">
-<a class="btn btn-login" href="index.html">Sign In</a>
-</div>
-<div class="signinform text-center">
-<h4>Don’t have an account? <a href="signup.html" class="hover-a">Sign Up</a></h4>
-</div>
+
+{{-- @extends('layouts.app') --}}
+
+{{-- @section('content') --}}
+
+<form method="POST" action="{{ route('login') }}">
+    @csrf
+
+    <div class="form-login">
+        <label for="email" class="">{{ __('Email Address') }}</label>
+
+        <div class="form-addons">
+            <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+            <img src="assets/img/icons/mail.svg" alt="img">
+            @error('email')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+            @enderror
+        </div>
+    </div>
+
+    <div class="form-login">
+        <label for="password" class="">{{ __('Password') }}</label>
+
+        <div class="pass-group">
+            <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
+            <span class="fas toggle-password fa-eye-slash"></span>
+            @error('password')
+                <span class="fas toggle-password fa-eye-slash" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+            @enderror
+        </div>
+    </div>
+
+    <div class="row md-3">
+        <div class="col-md-6">
+            <div class="form-check">
+                <input class="hover-a" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
+
+                <label class="form-check-label" for="remember">
+                    {{ __('Remember Me') }}
+                </label>
+            </div>
+        </div>
+
+        @if (Route::has('password.request'))
+        <a class="alreadyuser" href="{{ route('password.request') }}">
+            {{ __('Forgot Your Password?') }}
+        </a>
+        @endif
+        
+    </div>
+    
+    
+
+    <div class="form-login">
+        <div class="col-md-12">
+            <button type="submit" class="btn btn-login">
+                {{ __('Login') }}
+            </button>
+        </div>
+    </div>
+</form>
 </div>
 </div>
 <div class="login-img">
-<img src="assets/img/login.jpg" alt="img">
-</div>
+    <img src="assets/img/login/cotecoverC.jpg" alt="img">
+    </div>
 </div>
 </div>
 </div>
